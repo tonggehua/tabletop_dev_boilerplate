@@ -1,0 +1,22 @@
+.row{
+    padding: 3px;
+}
+
+[class*="col"]{
+    text-align: center;
+    font-family: Arial sans-serif;
+    font-size: 20px;
+}
+
+img{
+    width: 120%;
+    height: 100%;
+}
+#main-panel{
+    background-color: #555555;
+}
+
+.image-container{
+    min-width: 400px;
+    min-height: 400px;
+}

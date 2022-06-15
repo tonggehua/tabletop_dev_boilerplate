@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="menu">
+        {% for game_code, game in template_dict_games.items() %}
+        <h3 class="gamebutton">
+            <a href="./games/{{game_code+1}}">{{game}}</a>
+        </h3>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+

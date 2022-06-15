@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Register here</h3>
+{{form.username(size=27,placeholder="Enter username")}}
+{% for error in form.username.errors %}
+<span class="error">[{{error}}]</span>
+{% endfor %}
+
+
+
+{% endblock %}
