@@ -1,59 +1,111 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- tabs!!!! -->
-
-
-
-
-
-
+<!-- tabs!!!! --
     <div id="menu">
-        <!-- Include Buttons to access the 3 tabs-->
+        Include Buttons to access the 3 tabs
         <h3 id="f0-button" class="tab-selector">Frequency</h3>
         <h3 id="rf-button" class="tab-selector">RF power</h3>
         <h3 id="shim-button" class="tab-selector">Shimming</h3>
-
     </div>
+-->
+    <div class="container-fluid">
+        <div class="row id display-region">
+          <div class="col-4" id="fid-region">
+              <div id='chart-left' class='chart-left'></div>
+          </div>
+          <div class="col-4" id="spectrum-region">
+              <div id='chart-center' class='chart-center'></div>
+          </div>
+            <div class="col-4" id="fa-region">
+                <div id="chart-right" class="chart-right"></div>
+            </div>
+        </div>
+    <div class="row">
 
-    <div class="input-fields">
-
-    <div id="f0" class="tab">
-        <h2>Central frequency calibration</h2>
-        <p>This tab allows the user to change the central frequency and see its effects on FID and spectrum.</p>
+<div class="row" id="param-panel">
+<div class="col card" id="f0-card">
+        <h4 class="font-weight-bold">Central frequency</h4>
+        <p>Adjust the central frequency to match the magnet's.</p>
         <form action="/calibration" method="POST">
             {{template_f0_form.hidden_tag()}}
-            {{template_f0_form.f0_field.label}}
-            {{template_f0_form.f0_field()}}
-            {{template_f0_form.submit_field()}}
+            <div class="form-group">
+              {{template_f0_form.f0_field.label}}
+                {{template_f0_form.f0_field(class_="form-control")}}
+                  </div><br>
+
+            {{template_f0_form.submit_field(class_="btn btn-success")}}
+
         </form>
+  </div>
 
 
-    </div>
-    <div id="rf" class="tab">
-        <h2>RF power calibration for FA</h2>
-        <p>This tab allow the user to find the RF power output for a 90-degree flip angle. </p>
-        <label for="rf-field">RF power</label>
-        <input type="number" id="rf-field" value="0" min="0" max="150" step="1"></input>
-
-    </div>
-    <div id="shim" class="tab">
-        <h2>Shimming</h2>
+  <div class="col card" id="shim-card">
+        <h4 class="font-weight-bold">Shimming</h4>
+        <p>Adjust shim currents to make B0 uniform</p>
         <form action="/calibration" method="POST">
-        <label for="sx"> Shim x</label>
-        <input type="number" id="sx" name='xshim' value="0" min="0" max="1" step="0.01"></input>
-        <label for="sy"> Shim y</label>
-        <input type="number" id="sy" name='yshim' value="0" min="0" max="1" step="0.01"></input>
-        <label for="sz"> Shim z</label>
-        <input type="number" id="sz" name='zshim' value="0" min="0" max="1" step="0.01"></input>
-        <input type="submit" value="send"> Submit </input>
+
+            <div class="form-group">
+         {{ template_shim_form.shimx_field.label }}
+        {{ template_shim_form.shimx_field(class_="form-control") }}
+        </div>
+            <div class="form-group">
+            {{ template_shim_form.shimy_field.label }}
+        {{ template_shim_form.shimy_field(class_="form-control") }}
+            </div>
+        <div class="form-group">
+      {{ template_shim_form.shimz_field.label }}
+      {{ template_shim_form.shimz_field(class_="form-control") }}
+       </div>
+            {{ template_shim_form.submit_field(class_="btn btn-success") }}
         </form>
-    </div>
+
+  </div>
+  <div class="col card" id="rf-card">
+        <h4 class="font-weight-bold">RF power</h4>
+        <p>Find the RF power output needed for a 90-degree flip angle. </p>
+      <form action="/calibration" method="POST">
+
+          <div class="form-group">
+          {{ template_rf_form.tx_amp_field.label }}
+          {{ template_rf_form.tx_amp_field(class_="form-control") }}
+              </div>
+
+          <div class="form-group">
+          {{ template_rf_form.rx_gain_field.label }}
+          {{ template_rf_form.tx_amp_field(class_="form-control") }}
+              </div>
+          {{ template_rf_form.submit_field(class_="btn btn-success") }}
+      </form>
+  </div>
+
+
+</div>
+        <div class="row" id="run-reset-region">
+            <div class="btn btn-success col">START</div>
+            <div class="btn btn-danger col">STOP</div>
+        </div>
+        <div class="row" id="save-load-region">
+            <!-- Saving current parameters, loading previous ones -->
+            <div class="btn btn-info col">Save current</div>
+            <div class="btn btn-light col">Load previous</div>
+        </div>
 
     </div>
-    <hr>
-    <div id="outputs">
-        <p>This section allows users to save the calibration parameters</p>
-    </div>
 
+
+</div>
+</div>
+
+     <!-- Javascript for Plotly integration (required)-->
+     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+     <script type="text/javascript">
+         let graphs_left = {{ graphJSON_left | safe }};
+         Plotly.plot('chart-left',graphs_left,{});
+         let graphs_center = {{ graphJSON_center | safe }};
+         Plotly.plot('chart-center',graphs_center,{});
+         let graphs_right = {{ graphJSON_right | safe}};
+         Plotly.plot("chart-right",graphs_right,{});
+
+     </script>
 {% endblock %}

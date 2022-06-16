@@ -5,6 +5,8 @@ from forms import *
 from info import GAMES_DICT
 from models import User
 from os import environ
+from fake_data_generator import get_fake_calibration_plots
+
 from __main__ import app
 
 
@@ -31,18 +33,16 @@ def login():
 
 
 # Register page
-#@app.route('/register')
+@app.route('/register',methods=['GET','POST'])
 # TODO - this view function was copied in
-# #def register():
-#   form = Register_Form(csrf_enabled=False)
-#   if form.validate_on_submit():
-#     # define user with data from form here:
-#     user = User(username=form.username.data, email=form.email.data) # set user's password here:
-#     user.set_password(form.password.data)
-#     db.session.add(user)
-#     db.session.commit()
-# # TODO
-#   return render_template('register.html', title='Register', form=form)
+def register():
+    reg_form = Register_Form(csrf_enabled=False)
+    if reg_form.validate_on_submit(): #define user with data from form here:
+        user = User(username=reg_form.username.data, email=reg_form.email.data) # set user's password here:
+        user.set_password(reg_form.password.data)
+    #db.session.add(user)
+    #db.session.commit()
+    return render_template('register.html', title='Register', template_form=reg_form)
 
 
 @app.route('/calibration',methods=["GET","POST"])
@@ -50,9 +50,16 @@ def calibration():
     #if request.method == 'POST':
      #   print(request.form['xshim'])
     f0_form = F0_Form()
+    rf_form = RF_Form()
+    shim_form = Shim_Form()
+    j1, j2 = get_fake_calibration_plots()
+    j3 = j2
     if f0_form.validate_on_submit():
         print(f0_form.f0_field.data)
-    return render_template("calibration.html",template_title="Calibration", template_intro_text="Let's calibrate the scanner!",template_f0_form=f0_form)
+    return render_template("calibration.html",template_title="Calibration",
+                           template_intro_text="Let's calibrate the scanner!",template_f0_form=f0_form,
+                           template_rf_form = rf_form, template_shim_form = shim_form,
+                           graphJSON_left=j1, graphJSON_center=j2,graphJSON_right=j3)
 
 
 # Games
