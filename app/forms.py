@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField, IntegerField, PasswordField, DecimalField
+from wtforms import StringField, SubmitField, BooleanField, IntegerField, PasswordField, DecimalField, DecimalRangeField
 from wtforms.validators import DataRequired, EqualTo, Email, NumberRange
 
 
@@ -7,7 +7,8 @@ from wtforms.validators import DataRequired, EqualTo, Email, NumberRange
 class Register_Form(FlaskForm):
     username_field = StringField("Username",validators=[DataRequired()])
     password_field = PasswordField('Password', validators=[DataRequired()])
-    password2_field = PasswordField('Re-enter Password', validators=[DataRequired(), EqualTo('password')])
+    password2_field = PasswordField('Re-enter Password',
+                                    validators=[DataRequired(), EqualTo('password_field',message='Passwords must match')])
     submit_field = SubmitField("Register!")
 
 class Login_Form(FlaskForm):
@@ -17,20 +18,25 @@ class Login_Form(FlaskForm):
 
 
 # Calibration
-class F0_Form(FlaskForm):
-    f0_field = DecimalField("f0 (kHz)", validators=[DataRequired(), NumberRange(min=0,max=100)],default=15)
-    submit_field = SubmitField("Save")
+class FID_Params_Form(FlaskForm):
+    tr_field = DecimalField('Repetition Time (ms)', validators=[DataRequired(), NumberRange(min=5,max=5000)],default=1000)
+    readout_time_field = DecimalField('Readout duration (ms)',validators=[DataRequired(),NumberRange(min=10,max=100)],default=30)
+    num_rep_field = IntegerField('Number of repetitions',validators=[DataRequired(),NumberRange(min=1,max=50)],default=1)
+    num_avg_field = IntegerField('Number of averages', validators=[DataRequired(),NumberRange(min=1,max=100)],default=1)
+    submit_field = SubmitField('Update')
 
-class Shim_Form(FlaskForm):
-    shimx_field = DecimalField("Shim x", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    shimy_field = DecimalField("Shim y", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    shimz_field = DecimalField("Shim z", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    submit_field = SubmitField("Save")
+class Display_Opts_Form(FlaskForm):
+    autoscale_field = BooleanField("Autoscale", default=True)
+    show_prev_field = BooleanField('Show previous', default=False)
 
-class RF_Form(FlaskForm):
-    tx_amp_field = DecimalField('RF Tx amplitude', validators=[DataRequired()],default=3)
-    rx_gain_field = DecimalField('RF Rx gain', validators=[DataRequired()],default=3)
-    submit_field = SubmitField("Run flip angle calibration")
+class Calibration_Form(FlaskForm):
+    f0_field = DecimalField("Frequency (Hz)", validators=[DataRequired(), NumberRange(min=0,max=50e6)],default=8e6)
+    shimx_field = DecimalRangeField("Shim x", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
+    shimy_field = DecimalRangeField("Shim y", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
+    shimz_field = DecimalRangeField("Shim z", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
+    tx_amp_field = DecimalField('Tx amplitude', validators=[DataRequired()],default=0.6744)
+    rx_gain_field = DecimalField('Rx gain (db)', validators=[DataRequired()],default=3)
+    submit_field = SubmitField("Update")
 
 
 # TODO we need forms for all games
