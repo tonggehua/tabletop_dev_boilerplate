@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, IntegerField, PasswordField, DecimalField, DecimalRangeField
-from wtforms.validators import DataRequired, EqualTo, Email, NumberRange
+from wtforms.validators import DataRequired, EqualTo, Email, NumberRange, InputRequired
 
 
 # Accounts and Authentication
@@ -30,13 +30,13 @@ class Display_Opts_Form(FlaskForm):
     show_prev_field = BooleanField('Show previous', default=False)
 
 class Calibration_Form(FlaskForm):
-    f0_field = DecimalField("Frequency (Hz)", validators=[DataRequired(), NumberRange(min=0,max=50e6)],default=8e6)
-    shimx_field = DecimalRangeField("Shim x", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    shimy_field = DecimalRangeField("Shim y", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    shimz_field = DecimalRangeField("Shim z", validators=[DataRequired(),NumberRange(min=-1.0,max=1.0)],default=0)
-    tx_amp_field = DecimalField('Tx amplitude', validators=[DataRequired()],default=0.6744)
-    rx_gain_field = DecimalField('Rx gain (db)', validators=[DataRequired()],default=3)
-    submit_field = SubmitField("Update")
+    f0_field = DecimalField("Frequency (MHz)", validators=[InputRequired(), NumberRange(min=0,max=50)],default=15)
+    shimx_field = DecimalRangeField("Shim x", validators=[InputRequired(),NumberRange(min=-1.0,max=1.0)],default=0.0)
+    shimy_field = DecimalRangeField("Shim y", validators=[InputRequired(),NumberRange(min=-1.0,max=1.0)],default=0.0)
+    shimz_field = DecimalRangeField("Shim z", validators=[InputRequired(),NumberRange(min=-1.0,max=1.0)],default=0.0)
+    tx_amp_field = DecimalField('Tx amplitude', validators=[InputRequired()],default=0.5)
+    rx_gain_field = DecimalField('Rx gain (db)', validators=[InputRequired()],default=3)
+    submit_field = SubmitField("SAVE")
 
 
 # TODO we need forms for all games

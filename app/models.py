@@ -33,8 +33,8 @@ class Calibration(db.Model):
 
     def get_config_dict(self):
         # Write calibration parameters to config.py provided by path
-        params = {'f0': self.f0, 'tx_amp': self.tx_amp,
-                  'shimx': self.shimx, 'shimy': self.shimy, 'shimz': self.shimz}
+        params = {'f0': float(self.f0) * 1e6, 'tx_amp': float(self.tx_amp),
+                  'shimx': float(self.shimx), 'shimy': float(self.shimy), 'shimz': float(self.shimz)}
         print(params)
         return params
 
@@ -43,13 +43,13 @@ class Calibration(db.Model):
                stored at {self.stored_at}.'
 
 
-# Implement representation of acq. data generated, calibration parameters, etc.
-#class Progress(db.Model):
-  #  game1_complete = db.Column()
- #   game2_complete = db.Column()
 
 if __name__ == '__main__':
     # When models.py is run by itself, the database gets established.
+    # 3. Database checks
+    # Check that database exists and contains the admin entry
+    # If not, initialize database & add admin entry
+
     db.create_all()
     # Add default user "admin"
     admin_user = User(username='admin')

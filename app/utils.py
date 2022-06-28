@@ -30,6 +30,11 @@ def update_configuration(params,config_path):
         f.write(new_config)
         f.close()
 
+def update_session_subdict(sess,first_key, params):
+    for second_key in params.keys():
+        sess[first_key][second_key] = params[second_key]
+    sess.modified = True
+
 def read_configuration(config_path):
     # TODO read configuration parameters from config.py
     f0 = 0
