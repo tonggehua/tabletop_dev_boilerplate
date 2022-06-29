@@ -20,7 +20,11 @@ socket.on('fa plot served', (msg)=>{
 })
 
 $('#run-scan').click(()=> {
-    socket.emit('run scans',{'data':'Start running scans'});
+    // Emit signal to run scans while including current parameters
+    let payload = {'f0':parseFloat($('#f0').val())*1e6,
+        'shimx':parseFloat($('#shimx').val()),'shimy': parseFloat($('#shimy').val()),
+        'shimz':parseFloat($('#shimz').val()),'tx_amp':parseFloat($('#tx-amp').val())};
+    socket.emit('run scans',payload);
 })
 
 $('#stop-scan').click(()=>{
@@ -43,4 +47,9 @@ $('#zero-shims').click(()=>{
 
     // Send message to server to reset session shim values
     socket.emit('zero shims',{'data': 'Zeroing shim parameters!'})
+})
+
+// When any single parameter is changed, emit signal to server to update it
+$(':input').on('input',(event)=>{
+    socket.emit("update single param",{'id': event.target.id, 'value': event.target.value});
 })

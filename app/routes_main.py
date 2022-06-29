@@ -18,9 +18,13 @@ def initialize_parameters():
     session.clear()
     session['scanningFID'] = False
     session['scanningFA'] = False
-    session['calibration'] = {'f0':15e6, 'shimx':0.0, 'shimy':0.0, 'shimz':0.0, 'tx_amp': 3,
-                              'autoscale':True, 'show_prev':False}
+    session['calibration'] = {'f0':15e6, 'shimx':0.0, 'shimy':0.0, 'shimz':0.0, 'tx_amp': 0.5, 'rx_gain':3,
+                              'autoscale':True, 'show_prev':False,
+                              'TR':1, 'readout_dur':0.03, 'N_avg': 1, 'N_rep':1}
+    session['display'] = {'autoscale':True, 'show_prev':False}
     session['user_id'] = None
+
+
 
 
 
@@ -96,53 +100,72 @@ def register():
 
     return render_template('register.html', title='Register', template_form=reg_form)
 
+# TODO calibration tunings - #4 save to file
+# DONE - 1. Have "Start" button save parameters to session
+# DONE - 2. "Save" button both saves to session and to config.py (via form submission)
+# DONE - 3. *** Changing of any parameter changes the corresponding value in "session". ***
+# 4. "Save to file" / "Load" buttons split the current "load previous" one
+#     save to file - > outputs as config file apart from config.py
+#     load - > load a config file to (a) config.py (b) session
 
 @app.route('/calibration',methods=["GET","POST"])
 def calibration():
     #if request.method == 'POST':
      #   print(request.form['xshim'])
     calib_form = Calibration_Form()
-    fid_params_form = FID_Params_Form()
     display_opts_form = Display_Opts_Form()
 
     # Deal with calibration parameters
     if calib_form.validate_on_submit():
         print('Calibration validated')
         # Save to database
+        # Change to : save to yaml / xml /... file format.
         new_calibration = Calibration(f0=calib_form.f0_field.data, shimx=calib_form.shimx_field.data,
                                       shimy=calib_form.shimy_field.data, shimz=calib_form.shimz_field.data,
                                       tx_amp=calib_form.tx_amp_field.data)
         params = new_calibration.get_config_dict()
         utils.update_configuration(params,"config.py")
+
+        # TODO call save to config file format function here...
+
         db.session.add(new_calibration)
         try:
             db.session.commit()
-            flash(f"Parameters saved: f0 = {params['f0']}, shimx = {params['shimx']}, shimy={params['shimy']}, \
-                  tx amp = {params['tx_amp']}")
         except:
             db.session.rollback()
-        # Update session TODO includ all params to session...
+        # Update session with hardware parameters
         utils.update_session_subdict(session,'calibration', params)
         print(f"session f0 updated to {session['calibration']['f0']}")
 
-    # Deal with shared sequence parameters
-    if fid_params_form.validate_on_submit():
-        print("FID parameters submission is validated")
-        # TODO - integrate it with a model in database...
+        # Sequence parameters (all times are converted to seconds)
+        params_seq = {'TR': calib_form.tr_field.data / 1e3,
+                      'readout_dur': calib_form.readout_time_field.data / 1e3,
+                      'N_avg': calib_form.num_avg_field.data,
+                      'N_rep': calib_form.num_rep_field.data}
+        # Update session with sequence parameters
+        utils.update_session_subdict(session, 'calibration', params_seq)
 
-    #j1, j2, j3 = get_fake_calibration_plots(session['calibration']['f0'])
+        flash(f"Parameters saved: f0 = {params['f0']}, shimx = {params['shimx']}, shimy={params['shimy']}, \
+          tx amp = {params['tx_amp']}; sequence settings : TR = {params_seq['TR']} s, readout duration = {params_seq['readout_dur']} s, \
+          number of averages {params_seq['N_avg']}, number of repetitions {params_seq['N_rep']}")
+
+    # Default plots with no content to be displayed initially
     j1, j2, j3 = get_empty_calibration_plots()
-    return render_template("calibration.html",template_title="Calibration",
-                           template_intro_text="Let's calibrate the scanner!",template_calibration_form=calib_form,
-                           template_params_form=fid_params_form, template_disp_form=display_opts_form,
+
+    return render_template("calibration.html",template_title="Calibration", template_intro_text="Let's calibrate the scanner!",
+                           template_calibration_form=calib_form, template_disp_form=display_opts_form,
                            graphJSON_left=j1, graphJSON_center=j2,graphJSON_right=j3)
+
+
+
 
 # When client says RUN, we run.
 @socketio.on('run scans')
-def pump_out_fake_plots(message):
+def pump_out_fake_plots(payload):
+    # Parse parameters and save to session
+    utils.update_session_subdict(session,'calibration',payload)
     # Initiate the thread only if we are not scanning now
-    print(session['scanningFID'])
-    if not session.get('scanningFID'):
+    if not session.get('scanningFID'): # If FID plots are not running, create thread to do that.
         print("MAKING A NEW THREAD")
         calib_thread = SignalPlotsThread(session['calibration']['f0'])
         calib_thread.start()
@@ -152,7 +175,7 @@ def pump_out_fake_plots(message):
         print('we are in else')
         for th in threading.enumerate():
             if hasattr(th,'f0'):
-                th.f0 = session['calibration']['f0']
+                th.set_f0(session['calibration']['f0'])
     socketio.emit('take this',{'data':'THE SOCKET IS WORKING'})
 
 # When client says STOP, we stop.
@@ -187,3 +210,15 @@ def run_fake_FA_calibration(message):
 def zero_shims(message):
     print(message['data'])
     utils.update_session_subdict(session,'calibration',{'shimx':0.0,'shimy':0.0,'shimz':0.0})
+
+# Update signal parameters on change
+@socketio.on('update single param')
+def update_parameter(info):
+    if info['id'] == 'f0':
+        info['value'] = float(info['value'])*1e6
+    param = {info['id']:float(info['value'])}
+    utils.update_session_subdict(session,'calibration',param)
+    # Update thread TODO incorporate other parameters once connected to Red Pitaya
+    for th in threading.enumerate():
+        if hasattr(th, 'f0'):
+            th.set_f0(session['calibration']['f0'])

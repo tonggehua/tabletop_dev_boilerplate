@@ -33,7 +33,7 @@
             {{template_calibration_form.hidden_tag()}}
             <div class="form-group">
               {{template_calibration_form.f0_field.label}}
-                {{template_calibration_form.f0_field(class_="form-control", value=session['calibration']['f0']/1e6)}}
+                {{template_calibration_form.f0_field(id="f0",class_="form-control", value=session['calibration']['f0']/1e6)}}
                   </div><br>
 
 
@@ -68,12 +68,12 @@
 
           <div class="form-group">
           {{ template_calibration_form.tx_amp_field.label }}
-          {{ template_calibration_form.tx_amp_field(class_="form-control") }}
+          {{ template_calibration_form.tx_amp_field(id='tx_amp',class_="form-control") }}
               </div>
 
           <div class="form-group">
           {{ template_calibration_form.rx_gain_field.label }}
-          {{ template_calibration_form.rx_gain_field(class_="form-control") }}
+          {{ template_calibration_form.rx_gain_field(id='rx_gain',class_="form-control") }}
           </div>
 
           <div class="form-group">
@@ -91,25 +91,25 @@
                 <form action="/calibration" method="POST">
                         <div class="row">
                             <div class="col">
-                                {{ template_params_form.tr_field.label }}
-                                {{ template_params_form.tr_field(class_="form-control") }}
+                                {{ template_calibration_form.tr_field.label }}
+                                {{ template_calibration_form.tr_field(class_="form-control") }}
                             </div>
                             <div class="col">
-                                {{ template_params_form.readout_time_field.label }}
-                                {{ template_params_form.readout_time_field(class_="form-control") }}
+                                {{ template_calibration_form.readout_time_field.label }}
+                                {{ template_calibration_form.readout_time_field(class_="form-control") }}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                            {{ template_params_form.num_avg_field.label }}
-                            {{ template_params_form.num_avg_field(class_="form-control") }}
+                            {{ template_calibration_form.num_avg_field.label }}
+                            {{ template_calibration_form.num_avg_field(class_="form-control") }}
                             </div>
                             <div class="col">
-                        {{ template_params_form.num_rep_field.label }}
-                        {{ template_params_form.num_rep_field(class_="form-control") }}
+                        {{ template_calibration_form.num_rep_field.label }}
+                        {{ template_calibration_form.num_rep_field(class_="form-control") }}
                             </div>
                         </div>
-                        {{ template_params_form.submit_field(class_="btn btn-info") }}
+                        {{ template_calibration_form.submit_field(class_="btn btn-info") }}
 
                 </form>
             </div>
@@ -152,7 +152,7 @@
 </div>
 
      <!-- Javascript for Plotly integration (required)-->
-     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
      <script type="text/javascript">
          function plot_initial() {
                  let graphs_left = {{ graphJSON_left | safe }};
@@ -166,4 +166,7 @@
      </script>
 
 
+{% endblock %}
+{% block additional_imports %}
+        <script src="../static/calibration.js"></script>
 {% endblock %}

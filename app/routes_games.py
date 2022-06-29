@@ -21,14 +21,12 @@ def game2():
 
 
 @app.route('/games/3',methods=["GET","POST"])
-@login_required
 def game3():
     return render_template('game3.html',template_title="Brains, please!",template_intro_text="Of mice and men",
                            template_game_form=None)
 
 
 @app.route('/games/4',methods=["GET","POST"])
-@login_required
 def game4():
     game4form = Game4Form()
     if game4form.validate_on_submit():
@@ -42,7 +40,6 @@ def game4():
 
 
 @app.route('/games/6',methods=["GET","POST"])
-@login_required
 def game6():
     return render_template('game6.html',template_title="Relaxation station",template_intro_text="Sit back and map",template_game_form=None)
 

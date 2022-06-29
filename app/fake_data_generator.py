@@ -24,10 +24,10 @@ class ThreadStop():
 # Use socket ...
 class SignalPlotsThread(threading.Thread, ThreadStop):
     def __init__(self,f0):
-        print(f'Calling this with f0={f0}')
+        self.f0 = f0
+        print(f'Calling this with f0={self.f0}')
         self.delay = 1 # second
         self.thread_stop_event = threading.Event()
-        self.f0 = f0
         super(SignalPlotsThread, self).__init__()
 
     def randomPlotsGenerator(self):
@@ -35,6 +35,9 @@ class SignalPlotsThread(threading.Thread, ThreadStop):
             j1,j2 = get_fake_calibration_plots(self.f0)
             socketio.emit('plots served',{'fid':j1,'spectrum':j2})
             socketio.sleep(self.delay)
+
+    def set_f0(self,new_f0):
+        self.f0 = new_f0
 
     def run(self):
         self.randomPlotsGenerator()
