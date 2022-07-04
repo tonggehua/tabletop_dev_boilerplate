@@ -6,7 +6,8 @@ from flask_socketio import SocketIO, emit
 from flask_session import Session
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "never-tell-anyone-how-I-spin"
+app.config["SECRET_KEY"] = "how-i-spin"
+app.config["WTF_CSRF_SECRET_KEY"] = "how-i-spin"
 app.config["TESTING"] = True
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
@@ -40,7 +41,7 @@ def launch_virtualscanner():
     import routes_game5
     import routes_games
     #app.run()
-    socketio.run(app)
+    socketio.run(app,debug=True)
 
 if __name__ == '__main__':
     launch_virtualscanner()

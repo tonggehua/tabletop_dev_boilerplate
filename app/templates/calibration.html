@@ -109,21 +109,20 @@
                         {{ template_calibration_form.num_rep_field(class_="form-control") }}
                             </div>
                         </div>
-                        {{ template_calibration_form.submit_field(class_="btn btn-info") }}
 
                 </form>
             </div>
         <!-- Column 2: Main buttons -->
         <div class="col-4" id="button-region">
                 <div class="row h-50">
-                  <div class="btn btn-success btn-lg col" id="run-scan">START</div>
-                  <div class="btn btn-danger btn-lg col" id="stop-scan">STOP</div>
+                  <div class="btn btn-success btn-lg col  d-flex align-items-center justify-content-center" id="run-scan">START</div>
+                  <div class="btn btn-danger btn-lg col  d-flex align-items-center justify-content-center" id="stop-scan">STOP</div>
                 </div>
                 <!-- Saving current parameters, loading previous ones -->
                 <div class="row h-50">
                     {{template_calibration_form.submit_field(class_="btn btn-info btn-lg col",form="calibration_form")}}
                     <!-- input class="btn btn-info btn-lg col" type='submit' form="calibration_form" value="Save"></inpu-->
-                  <div class="btn btn-light btn-lg col">Load previous</div>
+                  <div class="btn btn-light btn-lg col  d-flex align-items-center justify-content-center">LOAD</div>
                 </div>
 
         </div>
@@ -131,11 +130,11 @@
             <div class="col-4">
                 <form action="/calibration" method="POST">
                         <div class="form-check form-switch form-control">
-                          {{ template_disp_form.autoscale_field(class_="form-check-input") }}
+                          {{ template_disp_form.autoscale_field(class_="form-check-input",disabled=True) }}
                           {{ template_disp_form.autoscale_field.label(class_="form-check-label") }}
                         </div>
                         <div class="form-check form-switch form-control">
-                          {{ template_disp_form.show_prev_field(class_="form-check-input") }}
+                          {{ template_disp_form.show_prev_field(class_="form-check-input",disabled=True) }}
                           {{ template_disp_form.show_prev_field.label(class_="form-check-label text-left") }}
                         </div>
                 </form>

@@ -1,24 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
     <div class="container-fluid vh-100">
-    <div class="row">
-        <div class="col-4" id="display-game5">
-            <div class="row h-25 card bg-light">
-                <div id='chart-spin' class='chart-spin'></div>
+    <div class="row h-100">
+    <!-- Display panels on the left -->
+        <div class="col-4 h-100" id="display-game5">
+            <div class="row card bg-light">
+                <div class="card-header">Spin</div>
+                <div class="card-body">
+                <div id='chart-spin' class='chart'></div>
+                    </div>
           </div>
-            <div class="row h-25 card">
-                <div id='chart-mx' class='chart'></div>
+            <div class="row card">
+                <div class="card-header">Magnetization in time</div>
+                <div class="card-body">
+                <div id='chart-m' class='chart'></div>
+                </div>
             </div>
-            <div class="row h-25 card">
-                <div id='chart-my' class='chart'></div>
-            </div>
-            <div class="row h-25 card">
-                <div id='chart-mz' class='chart'></div>
-            </div>
+
         </div>
+    <!-- Input fields -->
         <div class="col-8 h-100" id="fields-game5">
             <form action="/games/5" method="POST">
-                <div class="row card">
+                <div class="row h-25 card">
                          <h3 class="card-header">Main field</h3>
                          <div class="card-body">
                         {{ template_game_form.b0_onoff_field(class="btn-check",id="b0-button",autocomplete="off") }}
@@ -30,21 +33,40 @@
                              </div>
                     </div>
                 <br>
-                <div class="row card">
+                <div class="row h-25 card">
                     <h3 class="card-header">RF</h3>
                     <div class="card-body">
                     <div class="row">
                         <div class="col-4">{{ template_game_form.flip_angle_field.label }}</div>
-                        <div class="col-8">{{ template_game_form.flip_angle_field(class="form-range",step=1) }}</div>
+                        <div class="col-8">
+                            <div class="row">
+                            {{ template_game_form.flip_angle_field(class="form-range",step=5) }}
+                            </div>
+                            <div class="ticks text-primary">
+                            {% for angle in [0,45,90,135,180,225,270,315,360] %}
+                            <span class="tick">{{ angle }}</span>
+                            {% endfor %}
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-4">{{ template_game_form.rf_phase_field.label }}</div>
-                        <div class="col-8">{{ template_game_form.rf_phase_field(class="form-range",step=1) }}</div>
+                        <div class="col-8">
+                            <div class="row">
+                            {{ template_game_form.rf_phase_field(class="form-range",step=5) }}
+                            </div>
+                            <div class="ticks text-primary">
+                                {% for angle in [0,45,90,135,180,225,270,315,360] %}
+                                <span class="tick">{{ angle }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                     </div>
                 </div>
                 <br>
-                <div class="row card">
+                <div class="row h-25 card">
                     <h3 class="card-header">Receive coil</h3>
                     <div class="card-body row">
                     <div class="col-4">
@@ -60,29 +82,39 @@
                          </label>
                     </div>
 
-                        <div class="col-8 btn-group btn-group-toggle" role="group">
-                          <button type="button" class="btn btn-info">x</button>
-                          <button type="button" class="btn btn-light">y</button>
+                        <!-- TODO -->
+                        <div class="btn-group col-4">
+                            {% for subfield in template_game_form.rx_dir_field %}
+                                {{ subfield(class="btn-check ", autocomplete="off", checked=True) }}
+                                {{ subfield.label(class="btn btn-outline-primary d-flex align-items-center justify-content-center") }}
+                            {% endfor %}
                         </div>
 
-                        {{ template_game_form.rx_dir_field.label }}
-                        {{ template_game_form.rx_dir_field(class="form-control") }}
+
+                        </div>
 
                     </div>
-                </div>
+
                 <br>
-                <div class="row">
+                <div class="row h-25">
                     <div class="col-6 card bg-light">
                         <h3 class="card-header">Set initial magnetization</h3>
                         <div class="card-body">
                             <!-- Add in options to set initial magnetization value. -->
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="mag-options" id="mag-x" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="mag-x">x</label>
 
-                            <div class="btn-group btn-group-toggle" role="group">
-                              <button type="button" class="col btn btn-info btn-outline-info text-primary">x</button>
-                              <button type="button" class="col btn btn-light btn-outline-info text-primary">y</button>
-                              <button type="button" class="col btn btn-light btn-outline-info text-primary">z</button>
-                              <button type="button" class="col btn btn-light btn-outline-info text-primary">0</button>
-                            </div>
+                            <input type="radio" class="btn-check" name="mag-options" id="mag-y" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="mag-y">y</label>
+
+                            <input type="radio" class="btn-check" name="mag-options" id="mag-z" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="mag-z">z</label>
+
+                            <input type="radio" class="btn-check" name="mag-options" id="mag-0" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="mag-0">0</label>
+                        </div>
+
                             <div class="row">
                             <div class="col">
                                 {{ template_game_form.m_theta_field.label }}
@@ -104,38 +136,41 @@
                     <div class="col-6 card bg-light" id="game5-button-region">
                         <h3 class="card-header">Controls</h3>
                         <div class="row card-body">
-                            <div class="btn btn-light btn-outline-primary btn-lg col">REST</div>
                             {{template_game_form.submit_field(class_="btn btn-success btn-lg col")}}
-                            <div class="btn btn-danger btn-lg col" id="">PAUSE</div>
+                            <div class="btn btn-danger btn-lg col d-flex align-items-center justify-content-center">PAUSE</div>
+                            <div class="btn btn-light btn-outline-primary btn-lg col d-flex align-items-center justify-content-center">RESET</div>
+
                         </div>
                         <!-- Saving current parameters, loading previous ones -->
 
 
                         </div>
                     </div>
-
+            <div class="row card">
+                <div class="card-header h3">Messages</div>
+                <div class="card-body">
+                    <p>This space displays messages and hints.</p>
+                </div>
+            </div>
             </form>
-
         </div>
-
     </div>
-
     </div>
 
      <!-- Javascript for Plotly integration (required)-->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script type="text/javascript">
-         function plot_initial() {
-                 let graph_spin = {{ graphJSON_spin | safe }};
-                 Plotly.plot('chart-spin', graph_spin, {});
-                 let graph_mx = {{ graphJSON_mx | safe }};
-                 Plotly.plot('chart-mx', graph_mx, {});
-                 let graph_my = {{ graphJSON_my | safe }};
-                 Plotly.plot('chart-my', graph_my, {});
-                 let graph_mz = {{ graphJSON_mz | safe }};
-                 Plotly.plot('chart-mz', graph_mz, {});
+         let config = {
          }
-         plot_initial()
+
+         let layout = {
+         }
+
+         let graph_spin = {{ graphJSON_spin | safe }};
+         Plotly.plot('chart-spin',graph_spin,layout,config);
+         let graph_m = {{ graphJSON_m | safe }};
+         Plotly.plot('chart-m',graph_m,layout,config);
+
      </script>
 
 {% endblock %}

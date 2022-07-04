@@ -15,7 +15,7 @@ from __main__ import app, login_manager, db, socketio
 
 
 def initialize_parameters():
-    session.clear()
+    #session.clear() # This line causes csrf_token to fail validation in the root / login route, so it's disabled
     session['scanningFID'] = False
     session['scanningFA'] = False
     session['calibration'] = {'f0':15e6, 'shimx':0.0, 'shimy':0.0, 'shimz':0.0, 'tx_amp': 0.5, 'rx_gain':3,
@@ -23,6 +23,10 @@ def initialize_parameters():
                               'TR':1, 'readout_dur':0.03, 'N_avg': 1, 'N_rep':1}
     session['display'] = {'autoscale':True, 'show_prev':False}
     session['user_id'] = None
+
+    # TODO add Game 5 params
+    session['game5'] = {'b0_on': False, 'coil_on': False, 'flip_angle': 90, 'rf_phase': 0,
+                        'coil_dir': 'x', 'm_theta': 0, 'm_phi':0, 'm_size': 1}
 
 
 
@@ -57,6 +61,7 @@ def login():
     login_form = Login_Form()
 
     if login_form.validate_on_submit():
+        print('login validated')
         # If login successful, redirect to main page
         # Check login against database
         user = User.query.filter_by(username=login_form.username_field.data).first()

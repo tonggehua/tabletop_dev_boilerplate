@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, IntegerField, PasswordField, DecimalField, \
-                    DecimalRangeField, SelectField
+                    DecimalRangeField, SelectField, RadioField
 from wtforms.validators import DataRequired, EqualTo, Email, NumberRange, InputRequired
 
 
@@ -56,11 +56,19 @@ class Game5Form(FlaskForm):
     rf_phase_field = DecimalRangeField("Pulse direction (degrees)", validators=[DataRequired(), NumberRange(min=0,max=360)],default=0)
     # Receive
     rx_onoff_field = BooleanField("Coil",default=False)
-    rx_dir_field = SelectField("Coil direction",choices=['x','y'],validators=[DataRequired()],default='x')
+
+    rx_dir_field = RadioField("Coil Direction", choices=['x','y'],validators=[DataRequired()],default='x')
+
     # Magnetization status
     m_theta_field = DecimalField("Theta (deg)",validators=[DataRequired(),NumberRange(min=0,max=180)],default=0)
     m_phi_field = DecimalField("Phi (deg)",validators=[DataRequired(),NumberRange(min=0,max=360)],default=0)
     m_size_field = DecimalField('|M/M0|', validators=[DataRequired(),NumberRange(min=0,max=1)],default=1)
     # No use for submit field
     submit_field = SubmitField("Tip!")
+
+    # Whether rot frame is on or off 
+
+    # TODO include sequence parameters.
+    # RF duration
+    #
 
