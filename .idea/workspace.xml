@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a06241c3-7cc3-4e7c-bfa3-0d3da1e0f2dc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/TableTop Project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vs-tabletop" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vs-tabletop/app/flask_session/715220e90e7634966e9f39454d35091e" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vs-tabletop/app/routes_game1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tabletop_dev_boilerplate.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/fake_data_generator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/09b593b11e9de221fcdff20f1187fd05" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/3815aaad77561c70797b6336bbe23391" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/4828c8826be37b2440dffa8d9104119d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/51d30fc679ea3563b764d73bf65d75fe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/5447c8c4d2b30f15c5b1a55fd44399d5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/5e11fc020e729290f1598d6d789d755d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/6c386bcf0f561c9651864dd6d2247f2f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/7382d24ec42a136e1299a2a80e09e4df" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/7510877619da1afd502758cde76066f3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/9702b37736dc63ddb42282b7f8580a07" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/c4a6ed7f1163ff3e0d47bbfd962f0983" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/daf5a4b5679ee2f41abfe41afe8ad235" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/flask_session/e0ff1859746c0a327313d11f4c709a2f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/forms.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/info.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/myDB.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes_game5.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes_games.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes_main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/sim/simulation_workers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/calibration.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/img/virtual_scanner_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/placeholder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/styles/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/static/styles/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/calibration.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game3.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game4.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game5.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game6.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game7.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/game8.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/flask_session/2029240f6d1128be89ddc32729463129" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/flask_session/2029240f6d1128be89ddc32729463129" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/myDB.db" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/myDB.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/routes_game5.py" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/routes_game5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/routes_games.py" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/routes_games.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vs-tabletop/app/templates/game1.html" beforeDir="false" afterPath="$PROJECT_DIR$/vs-tabletop/app/templates/game1.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/vs-tabletop" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2BV4G7lrKiS7SIYYkF8wsB5NdLU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/GRS_Internships/FY22_Mt._Sinai_Projects/TableTop_Project",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="RunManager" selected="Python.app (1)">
+    <configuration name="app (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TableTop Project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/vs-tabletop/app" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/vs-tabletop/app/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tabletop_dev_boilerplate" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.app (1)" />
+        <item itemvalue="Python.app" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a06241c3-7cc3-4e7c-bfa3-0d3da1e0f2dc" name="Changes" comment="" />
+      <created>1656977820099</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656977820099</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
